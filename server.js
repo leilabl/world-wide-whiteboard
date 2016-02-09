@@ -13,8 +13,21 @@ server.on('request', app);
 
 var io = socketio(server);
 
+var saved = [];
+
 io.on('connection', function (socket) {
+	if(saved.length > 0) {
+		for(var i = 0; i < saved.length; i++) {
+			socket.emit('drawing',saved[i].start, saved[i].end, saved[i].color, saved[i].shouldBroadcast )
+			}
+		}
 	socket.on('drawing', function (start, end, color, shouldBroadcast) {
+		saved.push({
+			start: start,
+			end: end,
+			color: color,
+			shouldBroadcast: true
+		})
 		socket.broadcast.emit('drawing', start, end, color, shouldBroadcast);
 	});
 	socket.on('disconnect', function () {
