@@ -14,12 +14,9 @@ server.on('request', app);
 var io = socketio(server);
 
 io.on('connection', function (socket) {
-	console.log('a new client is connected')
-	console.log(socket.id)
-  // socket.emit('draw', { hello: 'world' });
-  // socket.on('my other event', function (data) {
-  //   console.log(data);
-  // });
+	socket.on('drawing', function (start, end, color, shouldBroadcast) {
+		socket.broadcast.emit('drawing', start, end, color, shouldBroadcast);
+	});
 	socket.on('disconnect', function () {
 	    console.log('Goodbye :(');
 	});
