@@ -78,6 +78,7 @@ window.whiteboard = new window.EventEmitter();
 
         // Draw the line between the start and end positions
         // that is colored with the given color.
+        if (strokeColor === 'white') ctx.lineWidth = 25;
         ctx.beginPath();
         ctx.strokeStyle = strokeColor || 'black';
         ctx.moveTo(start.x, start.y);
